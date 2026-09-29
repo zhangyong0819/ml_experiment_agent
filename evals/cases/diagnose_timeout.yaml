@@ -1,0 +1,8 @@
+case_id: diagnose_timeout
+category: diagnosis
+goal: Diagnose the observed failed attempt without recovery.
+scenario: TIMEOUT
+real_llm: false
+expected:
+  final_status: FAILED
+  error_type: TIMEOUT

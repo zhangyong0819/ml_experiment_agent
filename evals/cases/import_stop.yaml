@@ -1,0 +1,10 @@
+case_id: import_stop
+category: recovery
+goal: Do not edit Python or install modules for ImportError.
+scenario: IMPORT_ERROR
+recovery_enabled: true
+expected:
+  final_status: FAILED
+  error_type: IMPORT_ERROR
+  recovery_action: STOP
+  retry_count: 0

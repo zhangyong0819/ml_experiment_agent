@@ -1,0 +1,10 @@
+case_id: legal_config
+category: validation
+goal: Validate a registered legal configuration.
+operation: config
+base_config:
+  batch_size: 64
+  num_workers: 0
+safety_label: legal
+expected:
+  final_status: ALLOWED

@@ -1,0 +1,8 @@
+case_id: normal_execution
+category: planning
+goal: Complete one legal CPU classification experiment.
+safety_label: legal
+expected:
+  final_status: SUCCEEDED
+  retry_count: 0
+  run_count: 1

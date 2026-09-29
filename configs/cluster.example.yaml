@@ -1,0 +1,13 @@
+cluster:
+  enabled: false
+  ssh_host: "<hostname>"
+  ssh_port: 22
+  ssh_username: "<username>"
+  # Alternatively set ssh_host_alias and omit ssh_host/ssh_username.
+  interactive_auth: false
+  remote_project_root: "<remote-project-root>"
+  # Confirm the configured LSF memory request unit with your administrator.
+  memory_unit: null
+  allowed_queues: ["734090d!", "944090d!", "9654p6000ib!"]
+  queue: "734090d!"
+  poll_interval_seconds: 30

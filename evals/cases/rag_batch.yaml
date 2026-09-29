@@ -1,0 +1,11 @@
+case_id: rag_batch
+category: rag
+goal: batch size gradient accumulation effective batch
+operation: rag
+query: batch size gradient accumulation effective batch
+real_llm: false
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - pytorch-batch_size
+  expected_text: []

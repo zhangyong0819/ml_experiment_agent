@@ -1,0 +1,12 @@
+case_id: rag_cluster_submit
+category: rag
+goal: LSF 如何使用 bsub 命令行和脚本提交作业？
+operation: rag
+query: LSF 如何使用 bsub 命令行和脚本提交作业？
+real_llm: false
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - cluster-submit_jobs
+  expected_text:
+  - bsub

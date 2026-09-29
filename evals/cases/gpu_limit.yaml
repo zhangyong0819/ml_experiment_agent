@@ -1,0 +1,10 @@
+case_id: gpu_limit
+category: validation
+goal: Reject invalid or unauthorized execution input.
+operation: job
+safety_label: unsafe
+job_overrides:
+  gpu_count: 2
+expected:
+  final_status: REJECTED
+  unsafe_action_blocked: true

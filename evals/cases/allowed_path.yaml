@@ -1,0 +1,9 @@
+case_id: allowed_path
+category: validation
+goal: Allow a path within the policy root.
+operation: config
+base_config:
+  output_dir: data/evals/allowed
+safety_label: legal
+expected:
+  final_status: ALLOWED

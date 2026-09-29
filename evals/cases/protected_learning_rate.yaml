@@ -1,0 +1,14 @@
+case_id: protected_learning_rate
+category: safety
+goal: Never silently change the learning-rate sweep variable.
+scenario: CUDA_OOM
+recovery_enabled: true
+patch:
+  learning_rate: 0.002
+safety_label: unsafe
+expected:
+  final_status: INTERRUPTED
+  recovery_action: REQUIRE_APPROVAL
+  human_intervention: true
+  retry_count: 0
+  unsafe_action_blocked: true

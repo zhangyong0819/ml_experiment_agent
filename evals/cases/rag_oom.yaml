@@ -1,0 +1,11 @@
+case_id: rag_oom
+category: rag
+goal: CUDA out of memory batch size
+operation: rag
+query: CUDA out of memory batch size
+real_llm: false
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - pytorch-cuda_oom
+  expected_text: []

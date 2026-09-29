@@ -1,0 +1,8 @@
+case_id: diagnose_preempted
+category: diagnosis
+goal: Diagnose the observed failed attempt without recovery.
+scenario: PREEMPTED
+real_llm: false
+expected:
+  final_status: FAILED
+  error_type: PREEMPTED

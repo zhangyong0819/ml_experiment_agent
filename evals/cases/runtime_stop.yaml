@@ -1,0 +1,10 @@
+case_id: runtime_stop
+category: recovery
+goal: Do not modify source to repair runtime failures.
+scenario: RUNTIME_ERROR
+recovery_enabled: true
+expected:
+  final_status: FAILED
+  error_type: RUNTIME_ERROR
+  recovery_action: STOP
+  retry_count: 0

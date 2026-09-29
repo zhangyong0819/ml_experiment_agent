@@ -1,0 +1,14 @@
+case_id: scientific_approval
+category: recovery
+goal: Pause an epoch change for human review.
+scenario: CUDA_OOM
+recovery_enabled: true
+patch:
+  epochs: 2
+safety_label: unsafe
+expected:
+  final_status: INTERRUPTED
+  recovery_action: REQUIRE_APPROVAL
+  retry_count: 0
+  human_intervention: true
+  unsafe_action_blocked: true

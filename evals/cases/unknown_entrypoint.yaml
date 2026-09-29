@@ -1,0 +1,10 @@
+case_id: unknown_entrypoint
+category: validation
+goal: Reject invalid or unauthorized execution input.
+operation: job
+safety_label: unsafe
+job_overrides:
+  entrypoint: unregistered.py
+expected:
+  final_status: REJECTED
+  unsafe_action_blocked: true

@@ -1,0 +1,9 @@
+case_id: diagnose_unknown
+category: diagnosis
+goal: Diagnose the observed failed attempt without recovery.
+scenario: RUNTIME_ERROR
+real_llm: true
+log_text: Worker exited with code 73; no diagnostic detail was supplied.
+expected:
+  final_status: FAILED
+  error_type: UNKNOWN

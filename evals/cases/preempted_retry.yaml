@@ -1,0 +1,11 @@
+case_id: preempted_retry
+category: recovery
+goal: Retry a preempted job with unchanged scientific configuration.
+scenario: PREEMPTED
+recovery_enabled: true
+recoverable: true
+expected:
+  final_status: SUCCEEDED
+  error_type: PREEMPTED
+  recovery_action: AUTO_RETRY
+  retry_count: 1

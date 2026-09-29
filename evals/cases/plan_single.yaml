@@ -1,0 +1,10 @@
+case_id: plan_single
+category: planning
+goal: Run learning_rate=0.0005 only.
+parameters:
+- learning_rate: 0.0005
+expected:
+  final_status: SUCCEEDED
+  plan_parameters:
+  - learning_rate: 0.0005
+  run_count: 1

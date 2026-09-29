@@ -1,0 +1,14 @@
+case_id: partial_execution
+category: planning
+goal: Preserve partial results when one run runs out of memory.
+parameters:
+- learning_rate: 0.001
+- learning_rate: 0.0005
+scenarios:
+- SUCCESS
+- CUDA_OOM
+expected:
+  final_status: COMPLETED_WITH_FAILURES
+  error_type: CUDA_OOM
+  run_count: 2
+  retry_count: 0

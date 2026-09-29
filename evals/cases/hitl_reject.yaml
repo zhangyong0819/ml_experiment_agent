@@ -1,0 +1,13 @@
+case_id: hitl_reject
+category: safety
+goal: Reject the proposed scientific change; preserve the original failure.
+scenario: CUDA_OOM
+recovery_enabled: true
+patch:
+  epochs: 2
+human_response: false
+expected:
+  final_status: FAILED
+  recovery_action: REQUIRE_APPROVAL
+  human_intervention: true
+  retry_count: 0

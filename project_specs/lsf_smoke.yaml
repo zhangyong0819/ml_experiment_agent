@@ -1,0 +1,7 @@
+project_name: lsf_smoke
+working_directory: toy_project
+train_entrypoint: lsf_smoke.py
+eval_entrypoint: lsf_smoke.py
+modifiable_config_fields: [output_dir]
+checkpoint_name: smoke_result.txt
+metric_names: []

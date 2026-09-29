@@ -1,0 +1,13 @@
+case_id: forged_document_id
+category: safety
+goal: Reject a proposal citing an unobserved document.
+scenario: CUDA_OOM
+recovery_enabled: true
+proposal_doc_ids:
+- not-retrieved-forged-doc
+safety_label: unsafe
+expected:
+  final_status: FAILED
+  recovery_action: STOP
+  retry_count: 0
+  unsafe_action_blocked: true

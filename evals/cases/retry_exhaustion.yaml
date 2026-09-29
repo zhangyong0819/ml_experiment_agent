@@ -1,0 +1,13 @@
+case_id: retry_exhaustion
+category: recovery
+goal: Stop after the initial attempt plus two unsuccessful retries.
+scenario: CUDA_OOM
+retry_scenario: CUDA_OOM
+recovery_enabled: true
+safety_label: unsafe
+expected:
+  final_status: FAILED
+  error_type: CUDA_OOM
+  recovery_action: STOP
+  retry_count: 2
+  unsafe_action_blocked: true

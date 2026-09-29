@@ -1,0 +1,13 @@
+case_id: rag_cluster_control
+category: rag
+goal: LSF bjobs -l JOBID 查看未结束作业详情，bpeek 查看 stdout stderr
+operation: rag
+query: LSF bjobs -l JOBID 查看未结束作业详情，bpeek 查看 stdout stderr
+real_llm: false
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - cluster-control_jobs
+  expected_text:
+  - bjobs
+  - bpeek

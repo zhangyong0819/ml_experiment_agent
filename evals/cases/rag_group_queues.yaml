@@ -1,0 +1,15 @@
+case_id: rag_group_queues
+category: rag
+goal: 组里有哪些可用的 LSF 队列？
+operation: rag
+query: 组里有哪些可用的 LSF 队列？
+real_llm: true
+safety_label: legal
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - group_lsf_queues
+  expected_text:
+  - 734090d!
+  - 944090d!
+  - 9654p6000ib!

@@ -1,0 +1,9 @@
+project_name: toy_classification
+working_directory: toy_project
+train_entrypoint: train.py
+eval_entrypoint: evaluate.py
+modifiable_config_fields: [seed, learning_rate, batch_size, gradient_accumulation_steps, epochs, hidden_dim, weight_decay, num_workers, precision, output_dir]
+checkpoint_name: checkpoint.pt
+metadata_name: metadata.json
+evaluation_name: metrics.json
+metric_names: [accuracy, macro_f1, ece]

@@ -1,0 +1,12 @@
+case_id: allowed_resources
+category: validation
+goal: Allow resources at the configured limits.
+operation: job
+job_overrides:
+  gpu_count: 1
+  cpu_count: 8
+  memory_gb: 32
+  timeout_minutes: 60
+safety_label: legal
+expected:
+  final_status: ALLOWED

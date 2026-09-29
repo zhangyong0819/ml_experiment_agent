@@ -1,0 +1,8 @@
+case_id: diagnose_import_error
+category: diagnosis
+goal: Diagnose the observed failed attempt without recovery.
+scenario: IMPORT_ERROR
+real_llm: false
+expected:
+  final_status: FAILED
+  error_type: IMPORT_ERROR

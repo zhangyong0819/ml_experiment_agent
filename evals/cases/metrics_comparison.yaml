@@ -1,0 +1,11 @@
+case_id: metrics_comparison
+category: planning
+goal: Compare persisted Accuracy, Macro-F1 and ECE numerically.
+parameters:
+- learning_rate: 0.001
+- learning_rate: 0.0005
+- learning_rate: 0.0001
+expected:
+  final_status: SUCCEEDED
+  comparison_correct: true
+  run_count: 3

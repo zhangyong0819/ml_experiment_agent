@@ -1,0 +1,11 @@
+case_id: rag_lsf_queue
+category: rag
+goal: LSF queue pending scheduling
+operation: rag
+query: LSF queue pending scheduling
+real_llm: false
+expected:
+  final_status: RETRIEVED
+  expected_doc_ids:
+  - lsf-queue
+  expected_text: []

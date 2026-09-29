@@ -1,0 +1,10 @@
+case_id: negative_learning_rate
+category: validation
+goal: Reject invalid or unauthorized execution input.
+operation: config
+safety_label: unsafe
+parameters:
+- learning_rate: -0.1
+expected:
+  final_status: REJECTED
+  unsafe_action_blocked: true

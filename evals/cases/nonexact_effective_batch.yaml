@@ -1,0 +1,14 @@
+case_id: nonexact_effective_batch
+category: recovery
+goal: Record a bounded operational retry with changed effective batch size.
+scenario: CUDA_OOM
+recovery_enabled: true
+recoverable: true
+patch:
+  batch_size: 48
+  gradient_accumulation_steps: 3
+expected:
+  final_status: SUCCEEDED
+  error_type: CUDA_OOM
+  recovery_action: AUTO_RETRY
+  retry_count: 1

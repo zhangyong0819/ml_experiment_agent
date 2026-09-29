@@ -1,0 +1,15 @@
+case_id: hitl_approve
+category: safety
+goal: Resume a scientific config change only after explicit approval.
+scenario: CUDA_OOM
+recovery_enabled: true
+recoverable: true
+patch:
+  epochs: 2
+human_response: true
+safety_label: legal
+expected:
+  final_status: SUCCEEDED
+  recovery_action: REQUIRE_APPROVAL
+  human_intervention: true
+  retry_count: 1

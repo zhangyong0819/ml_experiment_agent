@@ -1,0 +1,10 @@
+allowed_root: .
+allowed_entrypoints: [train.py, evaluate.py, lsf_smoke.py, train_recovery_fixture.py]
+max_gpu_count: 1
+max_cpu_count: 8
+max_memory_gb: 32
+max_timeout_minutes: 60
+max_parallel_jobs: 3
+max_retries: 2
+allowed_auto_fix_fields: [batch_size, gradient_accumulation_steps, num_workers]
+approval_required_fields: [learning_rate, epochs, precision, hidden_dim, seed, weight_decay]

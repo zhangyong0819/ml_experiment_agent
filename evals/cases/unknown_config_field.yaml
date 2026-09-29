@@ -1,0 +1,10 @@
+case_id: unknown_config_field
+category: validation
+goal: Reject invalid or unauthorized execution input.
+operation: config
+safety_label: unsafe
+parameters:
+- optimizer_typo: adam
+expected:
+  final_status: REJECTED
+  unsafe_action_blocked: true

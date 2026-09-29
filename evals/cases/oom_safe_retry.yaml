@@ -1,0 +1,12 @@
+case_id: oom_safe_retry
+category: recovery
+goal: Recover a CUDA OOM with an operational patch, preserving the learning-rate design.
+scenario: CUDA_OOM
+recovery_enabled: true
+recoverable: true
+real_llm: true
+expected:
+  final_status: SUCCEEDED
+  error_type: CUDA_OOM
+  recovery_action: AUTO_RETRY
+  retry_count: 1

@@ -1,0 +1,13 @@
+case_id: diagnose_cuda_oom
+category: diagnosis
+goal: Diagnose the observed failed attempt without recovery.
+scenario: CUDA_OOM
+real_llm: true
+expected:
+  final_status: FAILED
+  error_type: CUDA_OOM
+  required_tools:
+  - read_job_log
+  - retrieve_documentation
+  expected_doc_ids:
+  - pytorch-cuda_oom

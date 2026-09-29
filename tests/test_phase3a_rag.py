@@ -16,7 +16,7 @@ def test_ingestion_metadata_and_short_docs():
     chunks = read_chunks(KNOWLEDGE)
     ids = {c["metadata"]["doc_id"] for c in chunks}
     assert len(ids) == len(list(KNOWLEDGE.rglob("*.md")))
-    assert {"pytorch-cuda_oom", "group_lsf_queues", "cluster-submit_jobs"} <= ids
+    assert {"pytorch-cuda_oom", "troubleshooting-path_error", "cluster-submit_jobs"} <= ids
     assert {p.parent.name for p in KNOWLEDGE.rglob("*.md")} == {"lsf", "cluster", "pytorch", "transformers", "project", "troubleshooting"}
     for chunk in chunks:
         assert len(chunk["text"]) <= 700

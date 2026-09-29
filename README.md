@@ -141,8 +141,8 @@ Only owned, DB-registered process handles can be cancelled. Active local process
 cannot safely reattach after Agent restart. Local mode currently supports CPU and
 zero DataLoader workers; configured resource policy bounds requests but is not an
 OS-level CPU/memory sandbox. Polling enforces timeout while the CLI is running.
-The existing HTTP API remains unchanged and defaults to MockBackend; use the CLI
-for this new real local execution mode.
+The HTTP API also supports LocalBackend through startup configuration
+`ML_AGENT_BACKEND=local`; the default remains MockBackend.
 
 ## HPC Mode
 
@@ -221,9 +221,31 @@ Two fixture queue-retrieval failures remain visible. These are small determinist
 
 ## FastAPI
 
+Backend selection is service-wide: `ML_AGENT_BACKEND=mock` (default), `local`,
+or optional `lsf`. Requests cannot change it. Local mode uses the same graph and
+ExperimentRunner, launches real registered CPU subprocesses, and polls at a
+one-second interval through the existing checkpoint scheduler. Process handles
+are shared within the app while each invocation gets its own database session.
+Local recovery/retry and approval use the existing workflow and `/resume` endpoint.
+HPC Bridge remains a CLI/HITL export/import workflow; LSFBackend is environment-dependent.
+
 ```powershell
-uvicorn ml_experiment_agent.api.app:create_app --factory --host 127.0.0.1 --port 8000 --workers 1
+$env:ML_AGENT_BACKEND="local"
+$env:ML_AGENT_MODEL_MODE="fake"
+python -m uvicorn ml_experiment_agent.api.app:create_app --factory --app-dir src --host 127.0.0.1 --port 8000 --workers 1
 ```
+
+Open `http://127.0.0.1:8000/docs` and submit `POST /experiments` with
+`{"goal":"Compare learning rates","project_name":"toy_classification"}`.
+The request returns 202; the runner performs training in the background. Query
+the experiment, metrics and report endpoints for results. `/health` returns
+`{"status":"ok","backend":"local"}` without starting work. No API key or GPU
+is needed in fake-model mode; local training itself is real.
+
+Use one worker and avoid `--reload` while local jobs are active: process handles
+cannot reattach after an application restart. Unknown active jobs require
+reconciliation rather than automatic resubmission. Set `ML_AGENT_BACKEND=mock`
+to return to simulated scheduling.
 
 | Endpoint | Purpose |
 |---|---|
@@ -255,9 +277,9 @@ Also available: `run_phase3a_diagnosis_demo.py --fake`, `print_graph.py`, `test_
 
 ## Test Results
 
-Latest complete run: **321 passed** (including local execution and manual-HPC integration coverage). Default pytest requires no SSH/LSF/API key/GPU/network/model download. New coverage includes direct/alias SSH, opaque usernames, queue/resource/path safety, scheduler states, ownership, polling checkpoint reload, API lifecycle and HITL.
+Latest complete run: **328 passed** (including six API-local tests and an int32 classification-target regression test). Default pytest requires no SSH/LSF/API key/GPU/network/model download. New coverage includes direct/alias SSH, opaque usernames, queue/resource/path safety, scheduler states, ownership, polling checkpoint reload, API lifecycle and HITL.
 
-Phase 2, fake diagnosis, automatic recovery, HITL approve and reject demos ran successfully. FastAPI service implemented and locally verified: Uvicorn actually started and HTTP GET /health returned 200 with the mock backend. The latest LSFBackend check failed noninteractive SSH authentication after passing host-key verification. No real job ID, bjobs sequence, remote logs or artifact were obtained. Docker configuration provided; runtime not locally verified. No real success is inferred from mocks. The new local subprocess success/retry demos and a cross-process HPC CLI export → failed import → new bundle → success import/report round trip were actually executed; the HPC results were explicitly offline fixtures.
+Phase 2, fake diagnosis, automatic recovery, HITL approve and reject demos ran successfully. FastAPI Local execution was verified through actual HTTP requests: POST /experiments returned 202 in 0.016 seconds; all three learning-rate runs completed using real CPU subprocesses, with nine metric records, a complete comparison and a generated report. GET /health reported local. Toy training explicitly creates int64 classification targets on both data splits. The latest LSFBackend check failed noninteractive SSH authentication after passing host-key verification. No real job ID, bjobs sequence, remote logs or artifact were obtained. Docker configuration provided; runtime not locally verified. No real success is inferred from mocks. The new local subprocess success/retry demos and a cross-process HPC CLI export → failed import → new bundle → success import/report round trip were actually executed; the HPC results were explicitly offline fixtures.
 
 ## Repository
 

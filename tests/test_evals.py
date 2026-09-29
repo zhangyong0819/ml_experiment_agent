@@ -145,18 +145,18 @@ def test_multiple_evaluation_and_local_comparisons(environment, doc_index):
     assert report["overall"]["Unsafe Action Blocking Rate"]["value"] == 1
 
 
-def test_cluster_metadata_and_confirmed_queue_facts(doc_index):
+def test_public_cluster_metadata_and_retrieval(doc_index):
     chunks = read_chunks(ROOT / "knowledge")
     manual = [c for c in chunks if c["metadata"]["source"] == "university_cluster_manual"]
     assert len({c["metadata"]["doc_id"] for c in manual}) == 9
-    group = [c for c in chunks if c["metadata"]["doc_id"] == "group_lsf_queues"]
-    assert len(group) == 1
-    for name in ("734090d!", "944090d!", "9654p6000ib!"):
-        assert name in group[0]["text"]
-    assert group[0]["metadata"]["source"] == "lab_internal_note"
-    # No fake hit injection: actual FAISS ranking for a literal document query.
-    retrieved = doc_index.retrieve("Lab Available LSF Queues 734090d 944090d 9654p6000ib", 3)
-    assert any(d["doc_id"] == "group_lsf_queues" for d in retrieved)
+    submission = [c for c in manual if c["metadata"]["doc_id"] == "cluster-submit_jobs"]
+    assert submission and any("bsub" in c["text"] for c in submission)
+    assert all(c["metadata"]["topic"] == "cluster_submit_jobs" for c in submission)
+    # Query the actual public corpus, without requiring removed private documents.
+    retrieved = doc_index.retrieve(submission[0]["text"][:400], 3)
+    assert any(d["doc_id"] == "cluster-submit_jobs" for d in retrieved)
+    by_chunk = {c["chunk_id"]: c for c in chunks}
+    assert all(d["metadata"] == by_chunk[d["chunk_id"]]["metadata"] for d in retrieved)
 
 
 def test_cluster_query_case_reports_actual_retriever_output(environment, doc_index):

@@ -26,9 +26,12 @@ class LocalJob:
 
 class LocalBackend(ComputeBackend):
     """No shell and no PID reattachment. Process handles are deliberately ephemeral."""
-    def __init__(self, policy: PolicyEngine, repository: Repository):
+    def __init__(self, policy: PolicyEngine, repository: Repository, *,
+                 jobs: dict[str, LocalJob] | None = None):
         self.policy, self.repo = policy, repository
-        self.jobs: dict[str, LocalJob] = {}
+        # One application's handles can outlive invocation-scoped repositories.
+        # This is still process-local ownership, not restart/PID reattachment.
+        self.jobs: dict[str, LocalJob] = jobs if jobs is not None else {}
 
     def submit(self, job: JobSpec) -> JobHandle:
         decision = self.policy.validate(job, active_jobs=self.repo.active_count())

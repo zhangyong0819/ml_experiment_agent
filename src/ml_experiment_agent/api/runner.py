@@ -40,7 +40,8 @@ class ExperimentRunner:
             repo = Repository(session)
             deps = self.dependencies(repo)
             with sqlite_checkpointer(self.checkpoints, application_db=self.database) as saver:
-                yield repo, deps, build_experiment_graph(deps, saver, deferred_polling=self.backend_type == "lsf")
+                yield repo, deps, build_experiment_graph(deps, saver,
+                    deferred_polling=self.backend_type in {"local", "lsf"})
 
     def start(self):
         with self.sessions() as session:

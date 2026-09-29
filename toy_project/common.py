@@ -12,7 +12,8 @@ def dataset():
     a, b, c, d = train_test_split(x.astype(np.float32), y, test_size=0.25,
                                 stratify=y, random_state=2718)
     mean, scale = a.mean(axis=0), a.std(axis=0).clip(min=1e-6)
-    return tuple(torch.as_tensor(v) for v in ((a-mean)/scale, c, (b-mean)/scale, d))
+    return (torch.as_tensor((a-mean)/scale), torch.as_tensor(c, dtype=torch.long),
+            torch.as_tensor((b-mean)/scale), torch.as_tensor(d, dtype=torch.long))
 
 
 def network(hidden_dim: int) -> nn.Module:
